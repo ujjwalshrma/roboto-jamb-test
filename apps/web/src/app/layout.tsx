@@ -1,27 +1,23 @@
 import "@workspace/ui/globals.css";
 
 import { SanityLive } from "@workspace/sanity/live";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Crimson_Pro } from "next/font/google";
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity/visual-editing";
-import { Suspense } from "react";
+// import { Suspense } from "react";
 import { preconnect, prefetchDNS } from "react-dom";
 
-import { FooterServer, FooterSkeleton } from "@/components/footer";
+// import { FooterServer, FooterSkeleton } from "@/components/footer";
 import { CombinedJsonLd } from "@/components/json-ld";
 import { Navbar } from "@/components/navbar";
 import { PreviewBar } from "@/components/preview-bar";
 import { Providers } from "@/components/providers";
-import { getNavigationData } from "@/lib/navigation";
 
-const fontSans = Geist({
+// import { getNavigationData } from "@/lib/navigation";
+
+const fontSans = Crimson_Pro({
   subsets: ["latin"],
   variable: "--font-sans",
-});
-
-const fontMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
 });
 
 export default async function RootLayout({
@@ -31,18 +27,18 @@ export default async function RootLayout({
 }>) {
   preconnect("https://cdn.sanity.io");
   prefetchDNS("https://cdn.sanity.io");
-  const nav = await getNavigationData();
+  // const nav = await getNavigationData();
+
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}
-      >
+      <body className={`${fontSans.variable} font-sans antialiased`}>
         <Providers>
-          <Navbar navbarData={nav.navbarData} settingsData={nav.settingsData} />
+          {/* <Navbar navbarData={nav.navbarData} settingsData={nav.settingsData} /> */}
+          <Navbar />
           {children}
-          <Suspense fallback={<FooterSkeleton />}>
+          {/* <Suspense fallback={<FooterSkeleton />}>
             <FooterServer />
-          </Suspense>
+          </Suspense> */}
           <SanityLive />
           <CombinedJsonLd includeOrganization includeWebsite />
           {(await draftMode()).isEnabled && (

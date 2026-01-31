@@ -14,6 +14,29 @@ export function HeroBlock({
   image,
   richText,
 }: HeroBlockProps) {
+  const hasRichText = !!richText;
+  const hasTitle = !!title;
+  const hasBadge = !!badge;
+
+  const onlyImage = image && !hasTitle && !hasRichText && !hasBadge;
+
+  if (onlyImage) {
+    return (
+      <section>
+        <div className="wrapper">
+          <SanityImage
+            className="w-full"
+            image={image}
+            fetchPriority="high"
+            height={768}
+            width={1436}
+            loading="eager"
+          />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="mt-4 md:my-16" id="hero">
       <div className="container mx-auto px-4 md:px-6">

@@ -123,6 +123,17 @@ export const structure = (
         title: "FAQs",
         icon: MessageCircle,
       }),
+      createList({
+        S,
+        type: "category",
+        title: "Categories",
+        icon: FileText,
+      }),
+      createList({
+        S,
+        type: "product",
+        title: "Products",
+      }),
       createList({ S, type: "author", title: "Authors", icon: User }),
       createList({
         S,

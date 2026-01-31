@@ -37,7 +37,7 @@ function SanityButton({
         target={openInNewTab ? "_blank" : "_self"}
         title={`Click to visit ${text}`}
       >
-        {text}
+        <p>{text}</p>
       </Link>
     </Button>
   );
@@ -54,7 +54,7 @@ export function SanityButtons({
   }
 
   return (
-    <div className={cn("flex flex-col gap-4 sm:flex-row", className)}>
+    <div className={cn("flex flex-col gap-4", className)}>
       {buttons.map((button) => (
         <SanityButton
           key={`button-${button._key}`}

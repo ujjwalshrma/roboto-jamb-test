@@ -7,11 +7,13 @@ import { createDataAttribute } from "next-sanity";
 import { useCallback, useMemo } from "react";
 
 import type { PageBuilderBlockTypes } from "@/types";
+import { CategoriesBlock } from "./sections/categories";
 import { CTABlock } from "./sections/cta";
 import { FaqAccordion } from "./sections/faq-accordion";
 import { FeatureCardsWithIcon } from "./sections/feature-cards-with-icon";
 import { HeroBlock } from "./sections/hero";
 import { ImageLinkCards } from "./sections/image-link-cards";
+import { ProductShowcase } from "./sections/product-showcase";
 import { SubscribeNewsletter } from "./sections/subscribe-newsletter";
 
 // More specific and descriptive type aliases
@@ -39,8 +41,10 @@ const BLOCK_COMPONENTS = {
   featureCardsIcon: FeatureCardsWithIcon,
   subscribeNewsletter: SubscribeNewsletter,
   imageLinkCards: ImageLinkCards,
+  categories: CategoriesBlock,
+  productShowcase: ProductShowcase,
   // biome-ignore lint/suspicious/noExplicitAny: <any is used to allow for dynamic component rendering>
-} as const satisfies Record<PageBuilderBlockTypes, React.ComponentType<any>>;
+} as const as Record<PageBuilderBlockTypes, React.ComponentType<any>>;
 
 /**
  * Helper function to create consistent Sanity data attributes
@@ -169,7 +173,7 @@ export function PageBuilder({
 
   return (
     <main
-      className="mx-auto my-16 flex max-w-7xl flex-col gap-16"
+      // className="mx-auto my-16 flex max-w-7xl flex-col gap-16"
       data-sanity={containerDataAttribute}
     >
       {blocks.map(renderBlock)}
