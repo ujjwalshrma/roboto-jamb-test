@@ -1,4 +1,3 @@
-import { Button } from "@workspace/sanity/types";
 import type { CSSProperties } from "react";
 
 import type { PagebuilderType } from "@/types";
@@ -47,10 +46,10 @@ export function CategoriesBlock({
                   {cat.title}
                 </h1>
               )}
-              {cat.richText && <RichText richText={cat.richText} />}
+              {cat.richText && <RichText richText={cat.richText as any} />}
               <div className="mt-7.5 max-sm:mb-7.5">
                 <SanityButtons
-                  buttons={cat.buttons}
+                  buttons={cat.buttons as any}
                   buttonClassName="global-button mx-auto max-sm:mx-0"
                 />
               </div>
@@ -65,7 +64,7 @@ export function CategoriesBlock({
                 className="h-full object-contain max-sm:w-full max-sm:h-auto"
                 fetchPriority="low"
                 height={734}
-                image={cat.image}
+                image={cat.image as any}
                 loading="lazy"
                 width={583}
               />

@@ -36,7 +36,7 @@ export function ProductShowcase({
                     className="object-cover w-full h-auto"
                     fetchPriority="low"
                     loading="lazy"
-                    image={prod.image}
+                    image={prod.image as any}
                     width={333}
                     height={244}
                   />
@@ -50,7 +50,7 @@ export function ProductShowcase({
                     className="object-contain"
                     fetchPriority="low"
                     loading="lazy"
-                    image={prod.image}
+                    image={prod.image as any}
                     width={333}
                     height={244}
                   />

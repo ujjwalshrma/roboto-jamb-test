@@ -18,9 +18,19 @@ import { ProductShowcase } from "./sections/product-showcase";
 import { SubscribeNewsletter } from "./sections/subscribe-newsletter";
 
 // More specific and descriptive type aliases
-type PageBuilderBlock = NonNullable<
+// type PageBuilderBlock = NonNullable<
+//   NonNullable<QueryHomePageDataResult>["pageBuilder"]
+// >[number];
+
+// Base type from Sanity query result
+type SanityPageBuilderBlock = NonNullable<
   NonNullable<QueryHomePageDataResult>["pageBuilder"]
 >[number];
+
+// Extended type that ensures _key exists (Sanity array items always have _key at runtime)
+type PageBuilderBlock = SanityPageBuilderBlock & {
+  _key: string;
+};
 
 export type PageBuilderProps = {
   readonly pageBuilder?: PageBuilderBlock[];
@@ -108,14 +118,6 @@ function useOptimisticPageBuilder(
 }
 
 /**
- * Scroll animation variants for blocks
- */
-const scrollFadeVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-};
-
-/**
  * Custom hook for block component rendering logic
  */
 function useBlockRenderer(id: string, type: string) {
@@ -133,7 +135,6 @@ function useBlockRenderer(id: string, type: string) {
     (block: PageBuilderBlock, _index: number) => {
       const Component =
         BLOCK_COMPONENTS[block._type as keyof typeof BLOCK_COMPONENTS];
-
       if (!Component) {
         return (
           <UnknownBlockError
@@ -145,18 +146,13 @@ function useBlockRenderer(id: string, type: string) {
       }
 
       return (
-        <motion.div
+        <div
           data-sanity={createBlockDataAttribute(block._key)}
           key={`${block._type}-${block._key}`}
-          variants={scrollFadeVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
         >
           {/** biome-ignore lint/suspicious/noExplicitAny: <any is used to allow for dynamic component rendering> */}
           <Component {...(block as any)} />
-        </motion.div>
+        </div>
       );
     },
     [createBlockDataAttribute]
@@ -186,8 +182,13 @@ export function PageBuilder({
   }
 
   return (
-    <main data-sanity={containerDataAttribute}>
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, animationDuration: 2 }}
+      // className="mx-auto my-16 flex max-w-7xl flex-col gap-16"
+      data-sanity={containerDataAttribute}
+    >
       {blocks.map(renderBlock)}
-    </main>
+    </motion.main>
   );
 }
