@@ -1,12 +1,15 @@
+import type { Product } from "@workspace/sanity/types";
 import type { CSSProperties } from "react";
 
-import type { PageBuilderBlockTypes } from "@/types";
 import { SanityImage } from "../elements/sanity-image";
 
 export function ProductShowcase({
   heading,
   products,
-}: PageBuilderBlockTypes<"productShowcase">) {
+}: {
+  heading?: string;
+  products: Product[];
+}) {
   return (
     <section id="product-showcase" className="bg-[#E3E3E3]">
       <div className="pt-9.25 pb-10.25 pr-9.75 max-sm:pr-4 pl-9.5 max-sm:pl-4 flex flex-col items-center justify-center">
@@ -23,7 +26,10 @@ export function ProductShowcase({
             };
 
             return (
-              <div className="flex flex-col justify-center mb-3 w-auto" key={prod._id}>
+              <div
+                className="flex flex-col justify-center mb-3 w-auto"
+                key={prod._id}
+              >
                 {/* Mobile: responsive sizing */}
                 <div className="sm:hidden w-full overflow-hidden flex items-center justify-center mb-3">
                   <SanityImage

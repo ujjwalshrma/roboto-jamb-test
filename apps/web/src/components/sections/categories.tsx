@@ -1,3 +1,4 @@
+import { Button } from "@workspace/sanity/types";
 import type { CSSProperties } from "react";
 
 import type { PagebuilderType } from "@/types";
@@ -9,11 +10,9 @@ type CategoryBlockProps = PagebuilderType<"categories">;
 
 export function CategoriesBlock({
   categories,
-  subtitle,
   paddingTop,
   paddingBottom,
   backgroundColor,
-  imageSize,
 }: CategoryBlockProps) {
   const toPx = (v: unknown) =>
     v == null ? undefined : typeof v === "number" ? `${v}px` : String(v);
@@ -30,12 +29,6 @@ export function CategoriesBlock({
 
   return (
     <section id="category" style={sectionBackgroundColor}>
-      {subtitle && (
-        <div className="text-center mb-6">
-          <p className="text-muted-foreground">{subtitle}</p>
-        </div>
-      )}
-
       {categories?.map((cat) => (
         <div
           className="max-w-320.75 px-5 w-full flex mx-auto items-center justify-between gap-15 max-sm:block"

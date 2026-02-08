@@ -13,6 +13,76 @@
  */
 
 // Source: schema.json
+export type CategoryReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "category";
+};
+
+export type Product = {
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  subtitle?: string;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  width?: number;
+  height?: number;
+  categoryId?: CategoryReference;
+};
+
+export type Category = {
+  _id: string;
+  _type: "category";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  subtitle?: string;
+  richText?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h2" | "h3" | "h4" | "h5" | "h6" | "inline";
+    listItem?: "number" | "bullet";
+    markDefs?: Array<{
+      customLink?: CustomUrl;
+      _type: "customLink";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  imageSize?: "large" | "medium";
+  buttons?: Array<
+    {
+      _key: string;
+    } & Button
+  >;
+};
+
 export type SubscribeNewsletter = {
   _type: "subscribeNewsletter";
   title?: string;
@@ -1126,6 +1196,18 @@ export type QueryHomePageDataResult = {
           _type: "featureCardIcon";
           _key: string;
         }> | null;
+      }
+    | {
+        _type: "categories";
+        categories?: Array<Category>;
+        paddingTop?: number;
+        paddingBottom?: number;
+        backgroundColor?: string;
+      }
+    | {
+        _type: "productShowcase";
+        heading?: string;
+        category?: CategoryReference;
       }
     | {
         _key: string;
