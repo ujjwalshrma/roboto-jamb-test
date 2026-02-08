@@ -176,3 +176,13 @@
 	background-color: transparent;
 	color: #737373;
 }
+
+@keyframes intro {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}

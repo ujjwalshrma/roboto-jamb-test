@@ -3,6 +3,7 @@
 import { useOptimistic } from "@sanity/visual-editing/react";
 import { env } from "@workspace/env/client";
 import type { QueryHomePageDataResult } from "@workspace/sanity/types";
+import { motion } from "motion/react";
 import { createDataAttribute } from "next-sanity";
 import { useCallback, useMemo } from "react";
 
@@ -107,6 +108,14 @@ function useOptimisticPageBuilder(
 }
 
 /**
+ * Scroll animation variants for blocks
+ */
+const scrollFadeVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+};
+
+/**
  * Custom hook for block component rendering logic
  */
 function useBlockRenderer(id: string, type: string) {
@@ -136,13 +145,18 @@ function useBlockRenderer(id: string, type: string) {
       }
 
       return (
-        <div
+        <motion.div
           data-sanity={createBlockDataAttribute(block._key)}
           key={`${block._type}-${block._key}`}
+          variants={scrollFadeVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
           {/** biome-ignore lint/suspicious/noExplicitAny: <any is used to allow for dynamic component rendering> */}
           <Component {...(block as any)} />
-        </div>
+        </motion.div>
       );
     },
     [createBlockDataAttribute]
@@ -172,10 +186,7 @@ export function PageBuilder({
   }
 
   return (
-    <main
-      // className="mx-auto my-16 flex max-w-7xl flex-col gap-16"
-      data-sanity={containerDataAttribute}
-    >
+    <main data-sanity={containerDataAttribute}>
       {blocks.map(renderBlock)}
     </main>
   );

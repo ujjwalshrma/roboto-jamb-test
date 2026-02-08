@@ -223,7 +223,7 @@ function Footer({ data }: FooterProps) {
           </div>
         </div>
       </div>
-      <div className="flex items-start justify-between flex-wrap gap-5 max-sm:gap-0">
+      <div className="flex items-start justify-start lg:justify-between flex-wrap gap-5 max-sm:gap-0">
         {columns?.map((col) => {
           return (
             <div key={col._key}>

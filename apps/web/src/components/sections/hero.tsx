@@ -1,4 +1,5 @@
 import { Badge } from "@workspace/ui/components/badge";
+import { motion } from "motion/react";
 
 import type { PagebuilderType } from "@/types";
 import { RichText } from "../elements/rich-text";
