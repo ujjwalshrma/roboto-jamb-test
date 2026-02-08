@@ -126,7 +126,7 @@
 	}
 
 	.wrapper {
-		@apply pl-9.5 pr-9.5;
+		@apply pl-9.5 pr-9.5 max-sm:pl-4 max-sm:pr-4;
 	}
 
 	p {
@@ -134,7 +134,7 @@
 	}
 
 	h1 {
-		@apply text-[43px] tracking-[0.5px];
+		@apply text-[43px]/[48px] tracking-[0.5px];
 	}
 
 	h2 {

@@ -22,6 +22,20 @@ export const category = defineType({
     },
     customRichText(["block"]),
     imageWithAltField(),
+    {
+      name: "imageSize",
+      title: "Image Size",
+      type: "string",
+      description: "Choose which image size to display for this category.",
+      options: {
+        list: [
+          { title: "Large", value: "large" },
+          { title: "Medium", value: "medium" },
+        ],
+        Layout: "radio",
+      },
+      initialValue: "large",
+    },
     buttonsField,
   ],
   preview: {

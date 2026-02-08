@@ -2381,17 +2381,63 @@ export type QueryGenericPageOGDataResult =
 // Query: *[_type == "footer" && _id == "footer"][0]{    _id,    subtitle,    columns[]{      _key,      title,      links[]{        _key,        name,        "openInNewTab": url.openInNewTab,        "href": select(          url.type == "internal" => url.internal->slug.current,          url.type == "external" => url.external,          url.href        ),      }    }  }
 export type QueryFooterDataResult = {
   _id: string;
-  subtitle: string | null;
-  columns: Array<{
+  _type: "footer";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  label?: string;
+  subtitle?: string;
+  columns?: Array<{
+    footerContent?: Array<
+      | {
+          name?: string;
+          href?: string;
+          openInNewTab?: string;
+          _type: "footerColumnLink";
+          _key: string;
+        }
+      | {
+          divider?: "solid" | "dashed";
+          _type: "footerColumnDivider";
+          _key: string;
+        }
+      | {
+          title?: string;
+          _type: "footerTitle";
+          _key: string;
+        }
+    >;
+    _type: "footerColumn";
     _key: string;
-    title: string | null;
-    links: Array<{
+  }>;
+  footerHeader: {
+    columns: Array<{
+      footerContent: Array<
+        | {
+            name: string;
+            href: string;
+            openInNewTab?: string;
+            _type: "footerColumnLink";
+            _key: string;
+          }
+        | {
+            divider: "solid" | "dashed";
+            _type: "footerColumnDivider";
+            _key: string;
+          }
+        | {
+            title: string;
+            _type: "footerTitle";
+            _key: string;
+          }
+      >;
+      _type: "footerColumn";
       _key: string;
-      name: string | null;
-      openInNewTab: boolean | null;
-      href: string | null;
-    }> | null;
-  }> | null;
+    }>;
+    footerNewsletter: {
+      title: string;
+    };
+  };
 } | null;
 // Variable: queryNavbarData
 // Query: *[_type == "navbar" && _id == "navbar"][0]{    _id,    columns[]{      _key,      _type == "navbarColumn" => {        "type": "column",        title,        links[]{          _key,          name,          icon,          description,          "openInNewTab": url.openInNewTab,          "href": select(            url.type == "internal" => url.internal->slug.current,            url.type == "external" => url.external,            url.href          )        }      },      _type == "navbarLink" => {        "type": "link",        name,        description,        "openInNewTab": url.openInNewTab,        "href": select(          url.type == "internal" => url.internal->slug.current,          url.type == "external" => url.external,          url.href        )      }    },      buttons[]{    text,    variant,    _key,    _type,    "openInNewTab": url.openInNewTab,    "href": select(      url.type == "internal" => url.internal->slug.current,      url.type == "external" => url.external,      url.href    ),  },  }

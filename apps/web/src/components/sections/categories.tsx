@@ -13,6 +13,7 @@ export function CategoriesBlock({
   paddingTop,
   paddingBottom,
   backgroundColor,
+  imageSize,
 }: CategoryBlockProps) {
   const toPx = (v: unknown) =>
     v == null ? undefined : typeof v === "number" ? `${v}px` : String(v);
@@ -37,7 +38,7 @@ export function CategoriesBlock({
 
       {categories?.map((cat) => (
         <div
-          className="max-w-320.75 px-5 w-full flex mx-auto items-center justify-between gap-15"
+          className="max-w-320.75 px-5 w-full flex mx-auto items-center justify-between gap-15 max-sm:block"
           style={categoryPadding}
           key={cat._id ?? cat.title}
         >
@@ -49,22 +50,26 @@ export function CategoriesBlock({
                 </div>
               )}
               {cat.title && (
-                <h1 className="text-balance mb-7.5 text-center">{cat.title}</h1>
+                <h1 className="text-balance mb-7.5 text-center max-sm:text-left">
+                  {cat.title}
+                </h1>
               )}
               {cat.richText && <RichText richText={cat.richText} />}
-              <div className="mt-7.5">
+              <div className="mt-7.5 max-sm:mb-7.5">
                 <SanityButtons
                   buttons={cat.buttons}
-                  buttonClassName="global-button mx-auto"
+                  buttonClassName="global-button mx-auto max-sm:mx-0"
                 />
               </div>
             </div>
           </div>
 
           {cat.image && (
-            <div className="w-145.75 h-183.5">
+            <div
+              className={`w-145.75 h-183.5 max-sm:h-auto max-sm:w-full flex items-center justify-center`}
+            >
               <SanityImage
-                className="h-full object-contain"
+                className="h-full object-contain max-sm:w-full max-sm:h-auto"
                 fetchPriority="low"
                 height={734}
                 image={cat.image}

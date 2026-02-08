@@ -142,6 +142,7 @@ const categoriesBlock = /* groq */ `
       paddingBottom,
       subtitle,
       backgroundColor,
+      imageSize,
       ${richTextFragment},
       ${imageFragment},
       ${buttonsFragment}
@@ -356,20 +357,54 @@ export const queryGenericPageOGData = defineQuery(`
 export const queryFooterData = defineQuery(`
   *[_type == "footer" && _id == "footer"][0]{
     _id,
+    label,
     subtitle,
     columns[]{
       _key,
-      title,
-      links[]{
+      footerContent[]{
         _key,
+        _type,
         name,
+        title,
+        divider,
         "openInNewTab": url.openInNewTab,
         "href": select(
           url.type == "internal" => url.internal->slug.current,
           url.type == "external" => url.external,
           url.href
-        ),
+        )
       }
+    },
+    footerHeader{
+      columns[]{
+        _key,
+        footerContent[]{
+          _key,
+          _type,
+          name,
+          title,
+          divider,
+          "openInNewTab": url.openInNewTab,
+          "href": select(
+            url.type == "internal" => url.internal->slug.current,
+            url.type == "external" => url.external,
+            url.href
+          )
+        }
+      },
+      footerNewsletter{
+        title
+      }
+    }
+  }
+`);
+
+export const queryFooterDataDebug = defineQuery(`
+  *[_type == "footer" && _id == "footer"][0]{
+    _id,
+    columns[]{
+      _key,
+      footerContent
     }
   }
 `);
@@ -457,5 +492,62 @@ export const queryRedirects = defineQuery(`
     "source":source.current, 
     "destination":destination.current, 
     "permanent" : permanent == "true"
+  }
+`);
+
+export const queryAllFooterData = defineQuery(`
+  *[_type == "footer"]{
+    _id,
+    label,
+    subtitle,
+    columns[]{
+      _key,
+      footerContent[]{
+        _key,
+        _type,
+        _type == "footerColumnLink" => {
+          name,
+          "openInNewTab": url.openInNewTab,
+          "href": select(
+            url.type == "internal" => url.internal->slug.current,
+            url.type == "external" => url.external,
+            url.href
+          )
+        },
+        _type == "footerTitle" => {
+          title
+        },
+        _type == "footerColumnDivider" => {
+          divider
+        }
+      }
+    },
+    footerHeader{
+      columns[]{
+        _key,
+        footerContent[]{
+          _key,
+          _type,
+          _type == "footerColumnLink" => {
+            name,
+            "openInNewTab": url.openInNewTab,
+            "href": select(
+              url.type == "internal" => url.internal->slug.current,
+              url.type == "external" => url.external,
+              url.href
+            )
+          },
+          _type == "footerTitle" => {
+            title
+          },
+          _type == "footerColumnDivider" => {
+            divider
+          }
+        }
+      },
+      footerNewsletter{
+        title
+      }
+    }
   }
 `);

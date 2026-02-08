@@ -43,46 +43,29 @@ export type ImageLinkCardImage = {
   _type: "image";
 };
 
-export type Category = {
-  _id: string;
-  _type: "category";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
+export type CategoryReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "category";
+};
+
+export type ProductShowcase = {
+  _type: "productShowcase";
   heading?: string;
-  richText?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
+  category?: CategoryReference;
+};
+
+export type Categories = {
+  _type: "categories";
+  categories?: Array<
+    {
       _key: string;
-    }>;
-    style?: "normal" | "h2" | "h3" | "h4" | "h5" | "h6" | "inline";
-    listItem?: "number" | "bullet";
-    markDefs?: Array<{
-      customLink?: CustomUrl;
-      _type: "customLink";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  buttons?: Array<{
-    label?: string;
-    url?: string;
-    target?: string;
-    _type: "button";
-    _key: string;
-  }>;
-  image?: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
+    } & CategoryReference
+  >;
+  paddingTop?: number;
+  paddingBottom?: number;
+  backgroundColor?: string;
 };
 
 export type SubscribeNewsletter = {
@@ -318,7 +301,10 @@ export type PageBuilder = Array<
     } & SubscribeNewsletter)
   | ({
       _key: string;
-    } & Category)
+    } & Categories)
+  | ({
+      _key: string;
+    } & ProductShowcase)
 >;
 
 export type Button = {
@@ -388,6 +374,85 @@ export type CustomUrl = {
   internal?: BlogReference | BlogIndexReference | PageReference;
 };
 
+export type Product = {
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  subtitle?: string;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  width?: number;
+  height?: number;
+  categoryId?: CategoryReference;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
+export type Category = {
+  _id: string;
+  _type: "category";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  subtitle?: string;
+  richText?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h2" | "h3" | "h4" | "h5" | "h6" | "inline";
+    listItem?: "number" | "bullet";
+    markDefs?: Array<{
+      customLink?: CustomUrl;
+      _type: "customLink";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  imageSize?: "large" | "medium";
+  buttons?: Array<
+    {
+      _key: string;
+    } & Button
+  >;
+};
+
 export type Redirect = {
   _id: string;
   _type: "redirect";
@@ -450,16 +515,54 @@ export type Footer = {
   label?: string;
   subtitle?: string;
   columns?: Array<{
-    title?: string;
-    links?: Array<{
-      name?: string;
-      url?: CustomUrl;
-      _type: "footerColumnLink";
-      _key: string;
-    }>;
+    footerContent?: Array<
+      | {
+          name?: string;
+          url?: CustomUrl;
+          _type: "footerColumnLink";
+          _key: string;
+        }
+      | {
+          divider?: "solid" | "dashed";
+          _type: "footerColumnDivider";
+          _key: string;
+        }
+      | {
+          title?: string;
+          _type: "footerTitle";
+          _key: string;
+        }
+    >;
     _type: "footerColumn";
     _key: string;
   }>;
+  footerHeader?: {
+    columns?: Array<{
+      footerContent?: Array<
+        | {
+            name?: string;
+            url?: CustomUrl;
+            _type: "footerColumnLink";
+            _key: string;
+          }
+        | {
+            divider?: "solid" | "dashed";
+            _type: "footerColumnDivider";
+            _key: string;
+          }
+        | {
+            title?: string;
+            _type: "footerTitle";
+            _key: string;
+          }
+      >;
+      _type: "footerColumn";
+      _key: string;
+    }>;
+    footerNewsletter?: {
+      title?: string;
+    };
+  };
 };
 
 export type Settings = {
@@ -486,22 +589,6 @@ export type Settings = {
     instagram?: string;
     youtube?: string;
   };
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
 };
 
 export type BlogIndex = {
@@ -903,7 +990,9 @@ export type AllSanitySchemaTypes =
   | SanityImageAssetReference
   | SeoImage
   | ImageLinkCardImage
-  | Category
+  | CategoryReference
+  | ProductShowcase
+  | Categories
   | SubscribeNewsletter
   | ImageLinkCards
   | FaqReference
@@ -918,13 +1007,15 @@ export type AllSanitySchemaTypes =
   | BlogIndexReference
   | PageReference
   | CustomUrl
+  | Product
+  | SanityImageCrop
+  | SanityImageHotspot
+  | Category
   | Redirect
   | Slug
   | Navbar
   | Footer
   | Settings
-  | SanityImageCrop
-  | SanityImageHotspot
   | BlogIndex
   | HomePage
   | Author

@@ -4,10 +4,10 @@ import { SanityLive } from "@workspace/sanity/live";
 import { Crimson_Pro } from "next/font/google";
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity/visual-editing";
-// import { Suspense } from "react";
+import { Suspense } from "react";
 import { preconnect, prefetchDNS } from "react-dom";
 
-// import { FooterServer, FooterSkeleton } from "@/components/footer";
+import { FooterServer, FooterSkeleton } from "@/components/footer";
 import { CombinedJsonLd } from "@/components/json-ld";
 import { Navbar } from "@/components/navbar";
 import { PreviewBar } from "@/components/preview-bar";
@@ -36,9 +36,9 @@ export default async function RootLayout({
           {/* <Navbar navbarData={nav.navbarData} settingsData={nav.settingsData} /> */}
           <Navbar />
           {children}
-          {/* <Suspense fallback={<FooterSkeleton />}>
+          <Suspense fallback={<FooterSkeleton />}>
             <FooterServer />
-          </Suspense> */}
+          </Suspense>
           <SanityLive />
           <CombinedJsonLd includeOrganization includeWebsite />
           {(await draftMode()).isEnabled && (

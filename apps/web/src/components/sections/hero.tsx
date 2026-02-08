@@ -23,9 +23,9 @@ export function HeroBlock({
   if (onlyImage) {
     return (
       <section>
-        <div className="wrapper">
+        <div className="wrapper ">
           <SanityImage
-            className="w-full"
+            className="w-full max-sm:h-[60dvh] object-cover"
             image={image}
             fetchPriority="high"
             height={768}
