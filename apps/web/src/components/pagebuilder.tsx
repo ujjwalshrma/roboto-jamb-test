@@ -146,13 +146,16 @@ function useBlockRenderer(id: string, type: string) {
       }
 
       return (
-        <div
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.4 }}
           data-sanity={createBlockDataAttribute(block._key)}
           key={`${block._type}-${block._key}`}
         >
           {/** biome-ignore lint/suspicious/noExplicitAny: <any is used to allow for dynamic component rendering> */}
           <Component {...(block as any)} />
-        </div>
+        </motion.div>
       );
     },
     [createBlockDataAttribute]

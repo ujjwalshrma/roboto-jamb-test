@@ -50,7 +50,7 @@ export function CategoriesBlock({
               <div className="mt-7.5 max-sm:mb-7.5">
                 <SanityButtons
                   buttons={cat.buttons as any}
-                  buttonClassName="global-button mx-auto max-sm:mx-0"
+                  buttonClassName="text-[#737373] border border-[#737373] rounded-none w-fit bg-transparent pl-[28px] pr-[29px] py-1 hover:bg-transparent hover:text-[#737373] mx-auto max-sm:mx-0"
                 />
               </div>
             </div>
