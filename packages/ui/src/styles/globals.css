@@ -7,6 +7,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
+html {
+	font-size: calc(100vw / 1512px * 10px);
+
+	@media screen and (max-width: 390px) {
+		font-size: calc(100vw / 390px * 10px);
+	}
+}
+
 :root {
 	--background: oklch(0.9566 0.0052 67.76);
 	--foreground: oklch(0.145 0 0);
@@ -44,38 +52,38 @@
 }
 /* 
 .dark {
-	--background: oklch(0.145 0 0);
-	--foreground: oklch(0.985 0 0);
-	--card: oklch(0.145 0 0);
-	--card-foreground: oklch(0.985 0 0);
-	--popover: oklch(0.145 0 0);
-	--popover-foreground: oklch(0.985 0 0);
-	--primary: oklch(0.985 0 0);
-	--primary-foreground: oklch(0.205 0 0);
-	--secondary: oklch(0.269 0 0);
-	--secondary-foreground: oklch(0.985 0 0);
-	--muted: oklch(0.269 0 0);
-	--muted-foreground: oklch(0.708 0 0);
-	--accent: oklch(0.269 0 0);
-	--accent-foreground: oklch(0.985 0 0);
-	--destructive: oklch(0.396 0.141 25.723);
-	--destructive-foreground: oklch(0.637 0.237 25.331);
-	--border: oklch(0.269 0 0);
-	--input: oklch(0.269 0 0);
-	--ring: oklch(0.556 0 0);
-	--chart-1: oklch(0.488 0.243 264.376);
-	--chart-2: oklch(0.696 0.17 162.48);
-	--chart-3: oklch(0.769 0.188 70.08);
-	--chart-4: oklch(0.627 0.265 303.9);
-	--chart-5: oklch(0.645 0.246 16.439);
-	--sidebar: oklch(0.205 0 0);
-	--sidebar-foreground: oklch(0.985 0 0);
-	--sidebar-primary: oklch(0.488 0.243 264.376);
-	--sidebar-primary-foreground: oklch(0.985 0 0);
-	--sidebar-accent: oklch(0.269 0 0);
-	--sidebar-accent-foreground: oklch(0.985 0 0);
-	--sidebar-border: oklch(0.269 0 0);
-	--sidebar-ring: oklch(0.439 0 0);
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.145 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.145 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.985 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.396 0.141 25.723);
+    --destructive-foreground: oklch(0.637 0.237 25.331);
+    --border: oklch(0.269 0 0);
+    --input: oklch(0.269 0 0);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.488 0.243 264.376);
+    --chart-2: oklch(0.696 0.17 162.48);
+    --chart-3: oklch(0.769 0.188 70.08);
+    --chart-4: oklch(0.627 0.265 303.9);
+    --chart-5: oklch(0.645 0.246 16.439);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(0.269 0 0);
+    --sidebar-ring: oklch(0.439 0 0);
 } */
 
 @theme inline {
@@ -103,10 +111,10 @@
 	--color-chart-3: var(--chart-3);
 	--color-chart-4: var(--chart-4);
 	--color-chart-5: var(--chart-5);
-	--radius-sm: calc(var(--radius) - 4px);
-	--radius-md: calc(var(--radius) - 2px);
+	--radius-sm: calc(var(--radius) - 0.4rem);
+	--radius-md: calc(var(--radius) - 0.2rem);
 	--radius-lg: var(--radius);
-	--radius-xl: calc(var(--radius) + 4px);
+	--radius-xl: calc(var(--radius) + 0.4rem);
 	--color-sidebar: var(--sidebar);
 	--color-sidebar-foreground: var(--sidebar-foreground);
 	--color-sidebar-primary: var(--sidebar-primary);
@@ -130,23 +138,23 @@
 	}
 
 	p {
-		@apply text-[21px]/[25px] font-normal;
+		@apply text-[2.1rem]/[2.5rem] font-normal;
 	}
 
 	h1 {
-		@apply text-[43px]/[48px] tracking-[0.5px];
+		@apply text-[4.3rem]/[4.8rem] tracking-[0.05rem];
 	}
 
 	h2 {
-		@apply text-[29px] tracking-[-0.5px];
+		@apply text-[2.9rem] tracking-[-0.05rem];
 	}
 
 	h3 {
-		@apply text-[22px]/[25px] font-normal tracking-[-0.5px];
+		@apply text-[2.2rem]/[2.5rem] font-normal tracking-[-0.05rem];
 	}
 
 	h4 {
-		@apply text-[17px]/[25px] font-semibold tracking-[0.5px];
+		@apply text-[1.7rem]/[2.5rem] font-semibold tracking-[0.05rem];
 	}
 
 	.global-button {
@@ -155,21 +163,21 @@
 }
 
 /* img {
-	display: block;
-	max-width: 100%;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	border-radius: var(--radius-md);
+    display: block;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-md);
 } */
 
 .global-button {
 	border-radius: 0;
 	background-color: transparent;
-	padding-left: 28px;
-	padding-right: 29px;
-	padding-top: 4px;
-	padding-bottom: 4px;
+	padding-left: 2.8rem;
+	padding-right: 2.9rem;
+	padding-top: 0.4rem;
+	padding-bottom: 0.4rem;
 }
 
 .global-button:hover {

@@ -30,24 +30,24 @@ export function CategoriesBlock({
     <section id="category" style={sectionBackgroundColor}>
       {categories?.map((cat) => (
         <div
-          className="max-w-320.75 px-5 w-full flex mx-auto items-center justify-between gap-15 max-sm:block"
+          className="px-5 flex mx-[13.2rem] items-center justify-between gap-15 max-sm:block"
           style={categoryPadding}
           key={cat._id ?? cat.title}
         >
-          <div className="">
-            <div className="max-w-127.25">
+          <div className="max-w-200">
+            <div className="">
               {cat.subtitle && (
                 <div className="text-center mb-5 max-sm:text-left">
                   <h4 className="text-black">{cat.subtitle}</h4>
                 </div>
               )}
               {cat.title && (
-                <h1 className="text-balance mb-7.5 text-center max-sm:text-left">
+                <h1 className="text-balance mb-12 text-center max-sm:text-left">
                   {cat.title}
                 </h1>
               )}
               {cat.richText && <RichText richText={cat.richText as any} />}
-              <div className="mt-7.5 max-sm:mb-7.5 flex flex-col gap-3 items-center justify-center max-sm:justify-start max-sm:items-start">
+              <div className="mt-12 max-sm:mb-12 flex flex-col gap-[1.2rem] items-center justify-center max-sm:justify-start max-sm:items-start">
                 {cat.buttons?.map((button: any) => (
                   <Link
                     key={button._key}
@@ -56,7 +56,7 @@ export function CategoriesBlock({
                     rel={
                       button.openInNewTab ? "noopener noreferrer" : undefined
                     }
-                    className="text-[#737373] border block border-[#737373] rounded-none w-fit bg-transparent pl-[28px] pr-[29px] py-1 hover:bg-transparent hover:text-[#737373] transition-colors"
+                    className="text-[#737373] border block border-[#737373] rounded-none w-fit bg-transparent pl-[2.8rem] pr-[2.9rem] py-1 hover:bg-transparent hover:text-[#737373] transition-colors"
                   >
                     <p>{button.text ?? "Learn More"}</p>
                   </Link>
@@ -67,10 +67,10 @@ export function CategoriesBlock({
 
           {cat.image && (
             <div
-              className={`w-145.75 h-183.5 max-sm:h-auto max-sm:w-full flex items-center justify-center`}
+              className={`w-[58.3rem] h-[73.4rem] max-sm:h-auto max-sm:w-full flex items-center justify-center`}
             >
               <SanityImage
-                className="h-full object-contain max-sm:w-full max-sm:h-auto"
+                className="h-full w-[58.3rem] object-cover max-sm:w-full max-sm:h-auto"
                 fetchPriority="low"
                 height={734}
                 image={cat.image as any}
